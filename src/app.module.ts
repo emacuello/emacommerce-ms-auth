@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AuthModule } from './contexts/auth/infrastructure/nestjs/module/auth.module';
+import { DynamoDBModule } from './db/dynamodb.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [DynamoDBModule, AuthModule],
 })
 export class AppModule {}
