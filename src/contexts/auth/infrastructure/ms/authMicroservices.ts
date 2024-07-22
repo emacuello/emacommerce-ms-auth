@@ -8,7 +8,6 @@ import { Injectable } from 'src/utils/dependencyInject/injectable';
 import { ErrorSignInException } from '../../domain/errors/errorSignIn.exception';
 import { DbRepository } from './dynamoDb.repository';
 import { GenerateToken } from '../generateToken/generateToken';
-import { ErrorCreateException } from '../../domain/errors/errorCreate.exception';
 import { HashPasswordAndCompare } from '../hashPassword/hashPassword';
 
 @Injectable()
@@ -39,19 +38,18 @@ export class AuthMicroservice extends AuthRepository {
     if (!comparePassword)
       throw new ErrorSignInException('Credenciales invalidas');
 
-    const user = new Auth(await firstValueFrom(response));
+    const user = Auth.signIn(await firstValueFrom(response));
     return await this.generateToken.generateToken(user);
   }
   async signUp(data: Auth): Promise<string> {
-    const result = this.client.send('createUser', data);
-    if (firstValueFrom(result) !== null) {
-      throw new ErrorCreateException('Error al crear el usuario');
-    }
+    const result = this.client.send('createUser', data.toValue());
+
     const user = new Auth(await firstValueFrom(result));
+
     const hashPass = await this.hashPassword.hashPassword(
       data.attributes.password,
     );
-    return this.dbRepository.createUser(
+    return await this.dbRepository.createUser(
       user.attributes.id,
       user.attributes.username,
       user.attributes.email,

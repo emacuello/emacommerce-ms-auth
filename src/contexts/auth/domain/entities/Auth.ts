@@ -4,7 +4,7 @@ export interface PrimitiveAuth {
   email?: string;
   username?: string;
   password?: string;
-  phone?: number;
+  phone?: bigint | number;
   country?: string;
   address?: string;
   city?: string;
@@ -19,7 +19,7 @@ interface AuthDto {
   email: string;
   username?: string;
   password?: string;
-  phone?: number;
+  phone?: bigint | number;
   country?: string;
   address?: string;
   city?: string;
@@ -41,5 +41,30 @@ export class Auth {
 
   static signIn(dto: SigInDto): Auth {
     return new Auth(dto);
+  }
+  toValue(): PrimitiveAuth {
+    return this.attributes;
+  }
+  toValueRegister(): Partial<PrimitiveAuth> {
+    return {
+      name: this.attributes.name,
+      username: this.attributes.username,
+      email: this.attributes.email,
+      password: this.attributes.password,
+      phone: this.attributes.phone,
+      country: this.attributes.country,
+      address: this.attributes.address,
+      city: this.attributes.city,
+      birthdate: this.attributes.birthdate,
+    };
+  }
+
+  toValueSignIn(): Partial<PrimitiveAuth> {
+    return {
+      id: this.attributes.id,
+      username: this.attributes.username,
+      email: this.attributes.email,
+      password: this.attributes.password,
+    };
   }
 }

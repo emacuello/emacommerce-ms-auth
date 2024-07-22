@@ -6,6 +6,13 @@ export class DbRepository {
   private tableName = 'credentials';
 
   constructor(private readonly dbRepository: DynamoDBRepository) {}
+  async getUserById(userId: string) {
+    const key = {
+      id: { S: userId },
+    };
+
+    return await this.dbRepository.getItem(this.tableName, key);
+  }
   async getUsersByUsername(username: string) {
     const indexName = 'UsernameIndex';
     const keyConditionExpression = 'username = :username';
@@ -49,5 +56,9 @@ export class DbRepository {
 
     await this.dbRepository.putItem(this.tableName, item);
     return 'Usuario creado correctamente';
+  }
+
+  async getAll() {
+    return await this.dbRepository.scanItems(this.tableName);
   }
 }

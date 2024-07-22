@@ -10,6 +10,8 @@ export class SigInController {
   constructor(private client: UserSignInService) {}
   @MessagePattern('signIn')
   signIn(@Payload() dto: SingUpDto) {
+    if (!Boolean(dto.email || dto.username))
+      throw new RpcException('Email or username is required');
     try {
       return this.client.run(dto);
     } catch (error) {
