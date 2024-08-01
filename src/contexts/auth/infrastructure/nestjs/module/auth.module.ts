@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { SigInController } from '../controller/V1/signin/sigin.controller';
-import { SigUpController } from '../controller/V1/signup/signup.controller';
+import { SigInController } from '../controller/V1/signin/sigIn.controller';
+import { SigUpController } from '../controller/V1/signup/signUp.controller';
 import { UserCreateService } from 'src/contexts/auth/application/userCreate/userCreate.service';
 import { UserSignInService } from 'src/contexts/auth/application/userSingIn/userSigIn.service';
 import { AuthRepository } from 'src/contexts/auth/domain/repository/auth.repository';

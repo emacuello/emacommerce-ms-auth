@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBConfigService } from './dynamodb.service';
 import { envs } from 'src/config/envs';
-import { DynamoDBRepository } from './dbservice.service';
+import { DynamoDBRepository } from './dbService.service';
 
 @Module({
   providers: [

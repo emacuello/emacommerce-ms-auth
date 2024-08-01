@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { V1_ROUTES } from '../../routes';
 import { UserSignInService } from 'src/contexts/auth/application/userSingIn/userSigIn.service';
-import { SingUpDto } from './sigin.dto';
+import { SingUpDto } from './sigIn.dto';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { ErrorSignInException } from 'src/contexts/auth/domain/errors/errorSignIn.exception';
 

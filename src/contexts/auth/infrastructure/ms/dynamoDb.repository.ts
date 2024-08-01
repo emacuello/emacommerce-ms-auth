@@ -1,4 +1,4 @@
-import { DynamoDBRepository } from 'src/db/dbservice.service';
+import { DynamoDBRepository } from 'src/db/dbService.service';
 import { Injectable } from 'src/utils/dependencyInject/injectable';
 
 @Injectable()
